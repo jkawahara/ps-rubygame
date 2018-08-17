@@ -1,6 +1,5 @@
  class Player
-
-	 attr_accessor :name
+	attr_accessor :name
 	attr_reader :health
 
 	def initialize(name, health=100)
@@ -25,7 +24,10 @@
 	def score
 		@health + @name.length
 	end
-	
+
+	def strong?
+		@health > 100
+	end
 end
 
 if __FILE__ == $0
