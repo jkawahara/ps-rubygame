@@ -6,8 +6,8 @@ player2 = Player.new("larry", 60)
 player3 = Player.new("Curly", 125)
 
 knuckleheads = Game.new("knuckleheads")
-puts knuckleheads.title.capitalize
 knuckleheads.add_player(player1)
 knuckleheads.add_player(player2)
 knuckleheads.add_player(player3)
-knuckleheads.play
+knuckleheads.play(3)
+knuckleheads.print_stats

@@ -14,15 +14,45 @@ class Game
 		@players << a_player
 	end
 
-	def play
+	def play(rounds)
 		puts "There are #{@players.size} players in #{@title.capitalize}:"
-		
+
 		@players.each do |player|	
 			puts player
 		end
 		
-		@players.each do |player|
-			GameTurn.take_turn(player)
+		1.upto(rounds) do |round|
+			puts"\nRound #{round}:"
+			@players.each do |player|
+				GameTurn.take_turn(player)
+				puts player
+			end
+		end
+	end
+
+	def print_name_and_health(player)
+		puts "#{player.name} (#{player.health})"
+	end
+
+	def print_stats
+		puts "\n#{title.capitalize} Statistics:"
+			
+		strong_players, wimpy_players = @players.partition { |player| player.strong? }
+
+		puts "\n#{strong_players.size} strong player(s):"
+		strong_players.each do |player|
+			print_name_and_health(player)
+		end
+
+		puts "\n#{wimpy_players.size} wimpy player(s):"
+		wimpy_players.each do |player|
+			print_name_and_health(player)
+		end
+
+		puts "\n#{title.capitalize} High Scores:"
+		@players.sort.each do |player|
+			formatted_name = player.name.ljust(20, '.')
+			puts "#{formatted_name} #{player.score}"
 		end
 	end
 end
