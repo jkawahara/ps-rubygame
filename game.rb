@@ -1,5 +1,4 @@
 require_relative 'player'
-require_relative 'die'
 require_relative 'game_turn'
 
 class Game
