@@ -10,7 +10,7 @@ class Game
 		@title = title
 		@players = []
 	end
-
+	
 	def add_player (a_player)
 		@players << a_player
 	end
@@ -29,7 +29,7 @@ class Game
 		end
 
 		1.upto(rounds) do |round|
-			puts"\nRound #{round}:"
+			puts "\nRound #{round}:"
 			@players.each do |player|
 				GameTurn.take_turn(player)
 			end
@@ -39,7 +39,12 @@ class Game
 	def print_name_and_health(player)
 		puts "#{player.name} (#{player.health})"
 	end
-	
+
+	def high_score_entry(player)
+		formatted_name = player.name.ljust(20, '.')
+		"#{formatted_name} #{player.score}"
+	end
+
 	def total_points
 		@players.reduce(0) { |sum, player| sum + player.points }
 	end
@@ -70,8 +75,22 @@ class Game
 
 		puts "\n#{title.capitalize} High Scores:"
 		@players.sort.each do |player|
-			formatted_name = player.name.ljust(20, '.')
-			puts "#{formatted_name} #{player.score}"
+				puts high_score_entry(player)
+		end
+	end
+
+	def load_players(from_file)
+		File.readlines(from_file).each do |line|
+			add_player(Player.from_csv(line))
+		end
+	end
+
+	def save_high_scores(to_file="high_scores.txt")
+		File.open(to_file, "w") do |file|
+			file.puts "#{title.capitalize} High Scores:"
+			@players.sort.each do |player|
+				file.puts high_score_entry(player)
+			end
 		end
 	end
 end
