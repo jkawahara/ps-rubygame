@@ -5,7 +5,7 @@ describe BerserkPlayer do
   before do
     @initial_health = 50 
     @player = BerserkPlayer.new("berserker", @initial_health)
-#    $stdout = StringIO.new
+    $stdout = StringIO.new
   end
   
   it "does not go berserk when w00ted up to 5 times" do
